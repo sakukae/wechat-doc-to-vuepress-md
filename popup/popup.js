@@ -81,16 +81,20 @@ function generateFrontmatter() {
   category = document.getElementById('category').value
   filename = document.getElementById('filename').value
   const { title, author, date } = frontmatterInfo
+
+  // 格式化日期
+  const formattedDate = date.replace(/(\d{4})年(\d{2})月(\d{2})日/, '$1-$2-$3')
+
   const frontmatter = `---
 title: ${title}
 author: ${author}
-date: ${date}
+date: ${formattedDate}
 cover: /assets/img/${category}/${filename}-0.png
 head:
   - - meta
     - name: ${categoryZh[category]}
 ---
-      
+
 `
   document.getElementById('markdownContent').textContent =
     frontmatter + convertToLocalImages(markdown)
