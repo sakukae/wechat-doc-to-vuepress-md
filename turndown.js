@@ -408,10 +408,15 @@ var TurndownService = (function () {
   rules.strong = {
     filter: ['strong', 'b'],
 
-    replacement: function (content, node, options) {
-      if (!content.trim()) return ''
-      return options.strongDelimiter + content + options.strongDelimiter
-    },
+ replacement: function (content, node, options) {
+  if (!content.trim()) return ''
+  // 匹配末尾标点（包括中英文冒号、逗号、句号等），允许标点后有空格
+  var match = content.match(/^([\s\S]*?)([：:，,。.!！?？；;、])\s*$/)
+  if (match) {
+    return options.strongDelimiter + match[1] + options.strongDelimiter + match[2]
+  }
+  return options.strongDelimiter + content + options.strongDelimiter
+},
   }
 
   rules.code = {
