@@ -70,6 +70,10 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     )
   })
+
+  document.getElementById('filename').addEventListener('blur', function () {
+    this.value = this.value.replace(/\s+$/, '')
+  })
 })
 
 function generateFrontmatter() {
